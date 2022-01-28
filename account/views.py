@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
 
 from .forms import UserRegisterationForm
 # Create your views here.
@@ -14,8 +14,12 @@ def register_user(request):
         registeration_form = UserRegisterationForm(request.POST)
         if registeration_form.is_valid():
             registeration_form.save()
-            return HttpResponse("User Created")
+            return redirect('login')
     context = {
+        'title':'Register',
         'form' : registeration_form
     }
-    return render(request, 'account/register.html', context = context)
+    return render(request, 'account/register.html', context=context)
+
+def userhome(request):
+    return render(request, 'account/userhome.html',{'title':"Home SongsApp"})
