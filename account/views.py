@@ -1,6 +1,4 @@
 from django.shortcuts import redirect, render
-
-
 from .forms import UserRegisterationForm
 # Create your views here.
 
@@ -23,4 +21,4 @@ def register_user(request):
 
 
 def userhome(request):
-    return render(request, 'account/userhome.html',{'title':"Home SongsApp"})
+    return render(request, 'account/userhome.html', {'title':"Home SongsApp"})

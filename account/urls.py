@@ -1,5 +1,3 @@
-from re import template
-from unicodedata import name
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import home, register_user, userhome
@@ -26,8 +24,4 @@ urlpatterns = [
     path('password-reset-complete',
         auth_views.PasswordResetCompleteView.as_view(template_name='account/password_reset_complete.html'),
         name='password_reset_complete')
-
-
-
-
 ]
