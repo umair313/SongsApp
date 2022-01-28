@@ -9,9 +9,9 @@ def home(request):
 
 
 def register_user(request):
-    registeration_form = UserRegisterationForm()
-    if request.method == 'POST':
-        registeration_form = UserRegisterationForm(request.POST)
+    registeration_form=UserRegisterationForm()
+    if request.method=='POST':
+        registeration_form=UserRegisterationForm(request.POST)
         if registeration_form.is_valid():
             registeration_form.save()
             return redirect('login')
@@ -20,6 +20,7 @@ def register_user(request):
         'form' : registeration_form
     }
     return render(request, 'account/register.html', context=context)
+
 
 def userhome(request):
     return render(request, 'account/userhome.html',{'title':"Home SongsApp"})
