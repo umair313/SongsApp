@@ -1,0 +1,95 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+  }
+  body{
+    font-family: 'Roboto', sans-serif;
+  }
+  ul {
+    list-style: none;
+  }
+  a{
+    text-decoration: none;
+  }
+  .container{
+    background-color: #ecf0f1;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .header{
+    background-color: #8e44ad;
+    display: flex;
+    align-items: center;
+  
+  }
+  .brand{
+    flex:1
+  }
+  
+  nav ul{
+    display: flex;
+  
+  }
+  
+  nav li a{
+    color: #ffff;
+    display: block;
+    padding: 10px 20px;
+    margin: 5px 10px;
+  }
+  nav li a:hover{
+    cursor: pointer;
+  }
+  nav li a:active{
+    background: #9b59b6;
+    border-radius: 6px;
+  }
+  .form{
+    width: 50%;
+    margin: 5% auto;
+  }
+  .form form p{
+    display: flex;
+    flex-direction: column;
+    margin:20px 0;
+  
+  }
+  .form form p label{
+    padding:1px 0;
+  }
+  
+  .form input{
+    padding: 10px;
+    border-radius: 6px;
+    outline: none;
+    border: none;
+    margin: 10px 0;
+  
+  }
+  .helptext, .form ul li{
+      color: #34495e;
+      font-weight: 400;
+  }
+  .form ul li{
+    list-style: disc;
+    margin-left: 30px
+  }
+  
+  .form button{
+    background: #8e44ad;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .form button:hover{
+    cursor: pointer;
+  
+  }
+  .form button:active{
+      background: #9b59b6;
+  }
+  
