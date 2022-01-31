@@ -9,3 +9,7 @@ class Artist(models.Model):
 class Album(models.Model):
     name = models.CharField(max_length=100)
     album_artist = models.ForeignKey(Artist, related_name='artist')
+
+class Genre(models.Model):
+    name = models.CharField(max_length=10)
+
