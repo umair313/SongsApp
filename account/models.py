@@ -3,8 +3,8 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    # to add extra features
-    pass
+    # custom user model to add extra fields
+    following = models.ManyToManyField('songs.Artist')
 
     def __str__(self):
         return self.username
