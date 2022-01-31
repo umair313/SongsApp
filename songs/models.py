@@ -1,5 +1,3 @@
-from distutils.command.upload import upload
-from pyexpat import model
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -7,17 +5,33 @@ from django.contrib.auth import get_user_model
 
 class Artist(models.Model):
     name = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return self.name
+
 
 class Album(models.Model):
     name = models.CharField(max_length=100)
     album_artist = models.ForeignKey(Artist, related_name='album_artist', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
+
 class Genre(models.Model):
-    name = models.CharField(max_length=10)
+    name = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.name
+
 
 class Playlist(models.Model):
-    name = models.CharField(max_length=20, default='Liked Songs')
+    name = models.CharField(max_length=50, default='Liked Songs')
     user = models.ForeignKey(get_user_model(), related_name='playlist_user', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
 
 class Track(models.Model):
     title = models.CharField(max_length=250)
@@ -33,3 +47,11 @@ class Track(models.Model):
     
     def __str__(self):
         return self.title
+
+
+class PlaylistTrack(models.Model):
+    playlist = models.ForeignKey(Playlist, related_name='playlist_playlist', on_delete=models.CASCADE)
+    track = models.ForeignKey(Track, related_name='playlist_track', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.playlist.name}"
