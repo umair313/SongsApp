@@ -1,24 +1,19 @@
-from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView
+from django.views.generic.edit import CreateView
 from .forms import UserRegisterationForm
+
 # Create your views here.
 
-def home(request):
-    return render(request, 'account/default.html')
+class HomeView(TemplateView):
+    template_name = 'account/default.html'
 
 
-def register_user(request):
-    registeration_form=UserRegisterationForm()
-    if request.method=='POST':
-        registeration_form=UserRegisterationForm(request.POST)
-        if registeration_form.is_valid():
-            registeration_form.save()
-            return redirect('login')
-    context = {
-        'title':'Register',
-        'form' : registeration_form
-    }
-    return render(request, 'account/register.html', context=context)
+class RegiserUserView(CreateView):
+    form_class = UserRegisterationForm
+    template_name = 'account/register.html'
+    success_url = reverse_lazy('login')
+    
 
-
-def userhome(request):
-    return render(request, 'account/userhome.html', {'title':"Home SongsApp"})
+class ApplicationHomeView(TemplateView):
+    template_name = 'account/userhome.html'
