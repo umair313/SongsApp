@@ -55,3 +55,4 @@ class PlaylistTrack(models.Model):
 
     def __str__(self):
         return f"{self.playlist.name}"
+        
