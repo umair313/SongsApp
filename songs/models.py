@@ -39,6 +39,7 @@ class Playlist(TimeStampedModel, models.Model):
 class Track(TimeStampedModel, models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250)
+    audio_file = models.FileField(upload_to='tracks')
     artist = models.ForeignKey('Artist', related_name='tracks', on_delete=models.CASCADE)
     album = models.ForeignKey('Album', related_name='tracks', on_delete=models.CASCADE)
     genre = models.ForeignKey('Genre', related_name='tracks', on_delete=models.CASCADE)
