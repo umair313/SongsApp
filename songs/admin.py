@@ -1,25 +1,15 @@
 from csv import list_dialects
 from django.contrib import admin
 from .models import (Artist, Track, Genre,
-                    Playlist, Album, PlaylistTrack)
+                     Playlist, Album, PlaylistTrack)
 
 # Register your models here.
 
 admin.site.register(PlaylistTrack)
 
 
-@admin.register(Album)
+@admin.register(Playlist, Album, Artist, Genre)
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created')
-
-
-@admin.register(Playlist)
-class PlaylistAdmin(admin.ModelAdmin):
-    list_display = ('name', 'owner', 'created')
-
-
-@admin.register(Artist, Genre)
-class ArtistAdmin(admin.ModelAdmin):
     list_display = ('name', 'created')
 
 

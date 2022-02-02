@@ -5,6 +5,7 @@ from .forms import UserRegisterationForm
 
 # Create your views here.
 
+
 class HomeView(TemplateView):
     template_name = 'account/default.html'
 
