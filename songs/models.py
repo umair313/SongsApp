@@ -44,7 +44,6 @@ class Track(TimeStampedModel, models.Model):
     artist = models.ForeignKey('Artist', related_name='tracks', on_delete=models.CASCADE)
     album = models.ForeignKey('Album', related_name='tracks', on_delete=models.CASCADE)
     genre = models.ForeignKey('Genre', related_name='tracks', on_delete=models.CASCADE)
-    playlists = models.ManyToManyField('Playlist', through='PlaylistTrack')
 
     def __str__(self):
         return self.title
