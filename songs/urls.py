@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import SearchView
+from .views import ListingView, ArtistListView, AlbumListView
 urlpatterns = [
-    path('search/', SearchView.as_view(), name='search')
+    path('listing/', ListingView.as_view(), name='listing'),
+    path('listing/artists/', ArtistListView.as_view(), name='artist_list'),
+    path('listing/albums/', AlbumListView.as_view(), name='album_list')
 ]

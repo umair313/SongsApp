@@ -27,4 +27,23 @@ rel="stylesheet">
         {% endblock %}
     </div>
   </body>
+  <script>
+      function get_search_result(){
+          const base_url = location.origin
+          const q = document.getElementById('searchbox').value
+          const params = new URLSearchParams(window.location.search);
+          const queryParam = params.get("q");
+
+          if (queryParam){
+              const url = base_url+`/listing/?q=${q}`
+              location.replace(url)
+          }else{
+              const url = base_url+`/listing/?q=${q}`
+
+              location.replace(url)
+          }
+
+
+      }
+  </script>
 </html>

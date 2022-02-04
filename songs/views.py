@@ -1,43 +1,39 @@
 from django.shortcuts import render
-from django.views.generic import FormView
+from django.views.generic import ListView, FormView
 from .forms import SearchForm
 from .models import Genre, Album, Track, Artist
 # Create your views here.
 
 
-class SearchView(FormView):
+class ListingView(ListView):
 
-    def get(self, request, *args, **kwargs):
-        genres = Genre.objects.all()
-        albums = Album.objects.all()
-        artists = Artist.objects.all()
-        tracks = Track.objects.all()
+    model = Track
+    template_name = 'search/lists.html'
+    context_object_name = 'result'
 
-        form = SearchForm()
-        context = {
-            'form': form,
-            'tracks': tracks,
-            'genres': genres,
-            'albums': albums,
-            'artists': artists
-        }
-        return render(request, 'search/search.html', context=context)
-
-    def post(self, request, *args, **kwargs):
-        form = SearchForm(request.POST)
-        if form.is_valid():
-            query = form.cleaned_data['search']
-            genres = Genre.objects.filter(name__search=query)
-            albums = Album.objects.filter(name__search=query)
-            tracks = Track.objects.filter(title__search=query)
-            artists = Artist.objects.filter(name__search=query)
-            context = {
-                'form': form,
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            tracks = Track.objects.filter(title__icontains=query)
+            albums = Album.objects.filter(name__icontains=query)
+            artists = Artist.objects.filter(name__icontains=query)
+            self.context_object_name = 'q'
+            return {
                 'tracks': tracks,
-                'genres': genres,
                 'albums': albums,
                 'artists': artists
             }
-            return render(request, 'search/search.html', context=context)
+
+        return Track.objects.all()[:10]
+
+
+class ArtistListView(ListView):
+    model = Artist
+    template_name = 'app/artistlisting.html'
+
+
+class AlbumListView(ListView):
+    model = Album
+    template_name = 'app/albumslisting.html'
 
 
