@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+<h1> Simple is the best </h1>
+<form action="{% url 'search' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Search</button>
+</form>
+<h2>Genres</h2>
+{% if genres %}
+    {% for genre in genres %}
+        <p> {{ genre.name }} </p>
+    {% endfor %}
+{% else %}
+    <p>Noting found</p>
+{% endif %}
+
+<h2>Albums</h2>
+{% if albums %}
+    {% for album in albums %}
+        <p> {{ album.name }} </p>
+    {% endfor %}
+{% else %}
+    <p>Noting found</p>
+{% endif %}
+
+<h2>Tracks</h2>
+{% if tracks %}
+    {% for track in tracks %}
+        <p> {{ track.title }} </p>
+    {% endfor %}
+{% else %}
+    <p>Noting found</p>
+{% endif %}
+
+<h2>Artist</h2>
+{% if artists %}
+    {% for artist in artists %}
+        <p> {{ artist.name }} </p>
+    {% endfor %}
+{% else %}
+    <p>Noting found</p>
+{% endif %}
+
+
+
+</body>
+</html>
