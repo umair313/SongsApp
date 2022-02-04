@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, FormView
-from .forms import SearchForm
+from django.views.generic import ListView
 from .models import Genre, Album, Track, Artist
 # Create your views here.
 
