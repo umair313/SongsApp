@@ -21,10 +21,18 @@ rel="stylesheet">
   </head>
   <body>
     <div class="container">
-        {% include 'account/header.html'%}
-        {% block content%}
-            
-        {% endblock %}
+    {#        {% include 'account/header.html'%}#}
+     <div class="section">
+        {% include 'app/sidebar.html' %}
+        <div class="contentSection">
+            <div class="maincontent">
+                {% block content%}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
     </div>
   </body>
+
 </html>

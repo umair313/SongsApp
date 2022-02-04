@@ -1,37 +1,31 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views import  generic as generic_views
 from .models import Genre, Album, Track, Artist
 # Create your views here.
 
 
-class ListingView(ListView):
-
-    model = Track
-    template_name = 'search/lists.html'
-    context_object_name = 'result'
-
-    def get_queryset(self):
-        query = self.request.GET.get('q')
+class ListView(generic_views.View):
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('q')
         if query:
-            tracks = Track.objects.filter(title__icontains=query)
-            albums = Album.objects.filter(name__icontains=query)
-            artists = Artist.objects.filter(name__icontains=query)
-            self.context_object_name = 'q'
-            return {
-                'tracks': tracks,
-                'albums': albums,
-                'artists': artists
+            context = {
+                "tracks": Track.objects.filter(title__icontains=query),
+                "artists": Artist.objects.filter(name__icontains=query),
+                "albums": Album.objects.filter(name__icontains=query)
             }
+            return render(request, 'app/lists.html', context=context)
 
-        return Track.objects.all()[:10]
+        tracks = Track.objects.all()[:10]
+
+        return render(request, 'app/lists.html', context={"trackslist": tracks})
 
 
-class ArtistListView(ListView):
+class ArtistListView(generic_views.ListView):
     model = Artist
     template_name = 'app/artistlisting.html'
 
 
-class AlbumListView(ListView):
+class AlbumListView(generic_views.ListView):
     model = Album
     template_name = 'app/albumslisting.html'
 

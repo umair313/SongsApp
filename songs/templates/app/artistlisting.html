@@ -1,12 +1,15 @@
-{% extends 'account/default.html' %}
-       {% block content %}
-           <div class="section">
-               {% include 'app/sidebar.html' %}
+{% extends 'account/authenticated_base.html' %}
+{% block content %}
 
-                <div class="contentSection">
-                    <div class="maincontent">
-                        {% include 'app/artists.html' with artists=object_list %}
-                    </div>
+    <div class="artistlist">
+        <h2>Artists</h2>
+        {% for artist in object_list %}
+            <div class="artist">
+                <div class="artistname">
+                    <p><a href="">{{ artist.name }}</a></p>
                 </div>
-           </div>
-       {% endblock %}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

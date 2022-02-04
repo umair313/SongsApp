@@ -93,7 +93,6 @@ nav li a:active{
 }
 .section{
   display: flex;
-  background-color: red;
 }
 .sidebar{
   width: 20%;
@@ -121,9 +120,6 @@ nav li a:active{
 .divider{
   border-bottom: 1px solid rgba(255, 255, 255, 0.479);
 }
-.playlistitem{
-  color: red;
-}
 
 .sidebar div.playlist{
   margin-top: 30px;
@@ -141,7 +137,9 @@ nav li a:active{
   color: #b2b2b2;
 }
 .searchcontainer{
+  margin-top: 10px;
   padding: 25px 0;
+
 }
 .searchinput{
   text-align: center;
@@ -174,7 +172,7 @@ nav li a:active{
 }
 
 .trackthumbnail img{
-  width: 100px;
+  width: 50px;
   border-radius: 10px;
 }
 .track, .artist{
