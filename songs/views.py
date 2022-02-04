@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.views import  generic as generic_views
-from .models import Genre, Album, Track, Artist
+from django.views import generic as generic_views
+from .models import Album, Track, Artist
 # Create your views here.
 
 
