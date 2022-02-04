@@ -39,5 +39,3 @@ class SearchView(FormView):
                 'artists': artists
             }
             return render(request, 'search/search.html', context=context)
-
-
