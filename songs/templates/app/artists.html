@@ -1,0 +1,10 @@
+            <div class="artistlist">
+                <h2>Artists</h2>
+                {% for artist in artists %}
+                    <div class="artist">
+                        <div class="artistname">
+                            <p><a href="">{{ artist.name }}</a></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>

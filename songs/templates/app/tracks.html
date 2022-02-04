@@ -1,0 +1,13 @@
+                <div class="trackslist">
+                    <h2>Tracks</h2>
+                    {% for track in tracks %}
+                    <div class="track">
+                        <div class="trackthumbnail">
+                            <img src="{{ track.album.thumbnail.url }}" alt="" />
+                        </div>
+                        <div class="tracktitle">
+                            <p><a href="">{{ track.title.capitalize }}</a></p>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
