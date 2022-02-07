@@ -17,4 +17,4 @@ class RegiserUserView(CreateView):
 
 
 class ApplicationHomeView(TemplateView):
-    template_name = 'account/userhome.html'
+    template_name = 'account/home.html'

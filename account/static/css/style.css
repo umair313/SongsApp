@@ -1,95 +1,246 @@
 *{
-    padding:0;
-    margin:0;
-    box-sizing: border-box;
-  }
-  body{
-    font-family: 'Roboto', sans-serif;
-  }
-  ul {
-    list-style: none;
-  }
-  a{
-    text-decoration: none;
-  }
-  .container{
-    background-color: #ecf0f1;
-    width: 100%;
-    height: 100vh;
-  }
-  
-  .header{
-    background-color: #8e44ad;
-    display: flex;
-    align-items: center;
-  
-  }
-  .brand{
-    flex:1
-  }
-  
-  nav ul{
-    display: flex;
-  
-  }
-  
-  nav li a{
-    color: #ffff;
-    display: block;
-    padding: 10px 20px;
-    margin: 5px 10px;
-  }
-  nav li a:hover{
-    cursor: pointer;
-  }
-  nav li a:active{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+}
+body{
+  font-family: 'Roboto', sans-serif;
+}
+ul {
+  list-style: none;
+}
+a{
+  text-decoration: none;
+}
+.container{
+  background-color: #ecf0f1;
+  min-height: 100vh;
+}
+
+.header{
+  background-color: #8e44ad;
+  display: flex;
+  align-items: center;
+
+}
+.brand{
+  flex:1
+}
+
+nav ul{
+  display: flex;
+
+}
+
+nav li a{
+  color: #ffff;
+  display: block;
+  padding: 10px 20px;
+  margin: 5px 10px;
+}
+nav li a:hover{
+  cursor: pointer;
+}
+nav li a:active{
+  background: #9b59b6;
+  border-radius: 6px;
+}
+.form{
+  width: 50%;
+  margin: 5% auto;
+}
+.form form p{
+  display: flex;
+  flex-direction: column;
+  margin:20px 0;
+
+}
+.form form p label{
+  padding:1px 0;
+}
+
+.form input{
+  padding: 10px;
+  border-radius: 6px;
+  outline: none;
+  border: none;
+  margin: 10px 0;
+
+}
+.helptext, .form ul li{
+    color: #34495e;
+    font-weight: 400;
+}
+.form ul li{
+  list-style: disc;
+  margin-left: 30px
+}
+
+.form button{
+  background: #8e44ad;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+}
+.form button:hover{
+  cursor: pointer;
+
+}
+.form button:active{
     background: #9b59b6;
-    border-radius: 6px;
-  }
-  .form{
-    width: 50%;
-    margin: 5% auto;
-  }
-  .form form p{
-    display: flex;
-    flex-direction: column;
-    margin:20px 0;
-  
-  }
-  .form form p label{
-    padding:1px 0;
-  }
-  
-  .form input{
-    padding: 10px;
-    border-radius: 6px;
-    outline: none;
-    border: none;
-    margin: 10px 0;
-  
-  }
-  .helptext, .form ul li{
-      color: #34495e;
-      font-weight: 400;
-  }
-  .form ul li{
-    list-style: disc;
-    margin-left: 30px
-  }
-  
-  .form button{
-    background: #8e44ad;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    color: #fff;
-    font-weight: 600;
-  }
-  .form button:hover{
-    cursor: pointer;
-  
-  }
-  .form button:active{
-      background: #9b59b6;
-  }
-  
+}
+.section{
+  display: flex;
+}
+.sidebar{
+  width: 20%;
+  background-color: #000;
+  height: 100vh;
+}
+
+.sidebar nav ul{
+  display: flex;
+  flex-direction: column;
+
+}
+.sidebar  nav ul li a{
+  color: #b2b2b2;
+  display: block;
+  margin-left: 25px;
+  font-weight: 600;
+}
+.sidebar  nav ul li a:hover{
+  color: #fff;
+}
+.sidebar  nav ul li a:active{
+  background-color: #282828;
+}
+.divider{
+  border-bottom: 1px solid rgba(255, 255, 255, 0.479);
+}
+
+.sidebar div.playlist{
+  margin-top: 30px;
+}
+.contentSection{
+  flex:1;
+  background-color: #121212;
+}
+.maincontent{
+  width: 95%;
+  margin: 0 auto;
+}
+.maincontent h2{
+  text-decoration: underline;
+  color: #b2b2b2;
+}
+.searchcontainer{
+  margin-top: 10px;
+  padding: 25px 0;
+
+}
+.searchinput{
+  text-align: center;
+}
+
+.searchinput input{
+  width: 400px;
+  height: 40px;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  outline: none;
+}
+.searchbtn{
+  margin-left: 10px;
+  padding: 12px;
+  border: none;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.searchbtn:hover{
+  background-color: rgb(206, 206, 206);
+}
+.trackslist, .artistlist{
+  margin-top: 50px;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.trackthumbnail img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.track, .artist{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.tracktitle, .artistname{
+  margin-left: 10px;
+}
+
+.tracktitle a, .artist a{
+  color: #b2b2b2;
+}
+
+.tracktitle a:hover, .artist a:hover{
+  text-decoration: underline;
+}
+.listoptions{
+  margin-top: 20px;
+  margin-left: 50px;
+}
+.listoptions nav li a{
+  background-color: #b2b2b2;
+  color: #121212;
+  font-weight: 600;
+}
+.listoptions nav li a:hover{
+  background-color: rgb(206, 206, 206);
+}
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+

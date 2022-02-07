@@ -1,0 +1,102 @@
+{% extends 'account/authenticated_base.html' %}
+{% block content %}
+    <div class="searchcontainer">
+        <div class="searchinput">
+            <input
+                    type="text"
+                    id="searchbox"
+                    placeholder="Artists, Tracks or Albums"
+                    onchange="get_search_result()"
+            />
+            <button class="searchbtn" id="searchbtn" onclick="get_search_result()">Search</button>
+        </div>
+    </div>
+
+    {% if trackslist %}
+        <div class="trackslist">
+                <h2>Tracks</h2>
+                {% for track in trackslist %}
+                    <div class="track">
+                        <div class="trackthumbnail">
+                            <img src="{{ track.album.thumbnail.url }}" alt=""/>
+                        </div>
+                        <div class="tracktitle">
+                            <p><a href="">{{ track.title.capitalize }}</a></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        <div class="listoptions">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'artist_list' %}">Artist</a></li>
+                    <li><a href="{% url 'album_list' %}">Albums</a></li>
+                </ul>
+            </nav>
+        </div>
+    {% else %}
+
+        {% if tracks %}
+            <div class="trackslist">
+                <h2>Tracks</h2>
+                {% for track in tracks %}
+                    <div class="track">
+                        <div class="trackthumbnail">
+                            <img src="{{ track.album.thumbnail.url }}" alt=""/>
+                        </div>
+                        <div class="tracktitle">
+                            <p><a href="">{{ track.title.capitalize }}</a></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% endif %}
+
+        {% if albums %}
+            <div class="trackslist">
+                <h2>Albums</h2>
+                {% for album in albums %}
+                    <div class="track">
+                        <div class="trackthumbnail">
+                            <img src="{{ album.thumbnail.url }}" alt=""/>
+                        </div>
+                        <div class="tracktitle">
+                            <p><a href="">{{ album.name }}</a></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if artists %}
+            <div class="artistlist">
+                <h2>Artists</h2>
+                {% for artist in artists %}
+                    <div class="artist">
+                        <div class="artistname">
+                            <p><a href="">{{ artist.name }}</a></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% endif %}
+    {% endif %}
+      <script>
+      function get_search_result(){
+          const base_url = location.origin
+          const q = document.getElementById('searchbox').value
+          const params = new URLSearchParams(window.location.search);
+          const queryParam = params.get("q");
+
+          if (queryParam){
+              const url = base_url+`/list/?q=${q}`
+              location.replace(url)
+          }else{
+              const url = base_url+`/list/?q=${q}`
+              location.replace(url)
+          }
+      }
+  </script>
+
+{% endblock %}
