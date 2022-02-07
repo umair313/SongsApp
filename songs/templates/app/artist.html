@@ -2,10 +2,10 @@
 {% block content %}
 <div class="cardbox">
     <div class="artist_info">
-        <p><a href="">{{ object.name.title }}</a></p>
-        <p>followers:<span>{{ object.followers.count }} </span></p>
+        <p><a href="">{{ artist.name.title }}</a></p>
+        <p>followers:<span>{{ artist.followers.count }} </span></p>
     </div>
-    {% for album in object.albums.all %}
+    {% for album in artist.albums.all %}
     <div class="trackinfo">
         <div>
           <a href="{% url 'album_view' album.pk %}">{{ album.name }}</a>

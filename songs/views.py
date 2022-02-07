@@ -33,18 +33,16 @@ class AlbumListView(generic_views.ListView):
 
 class TrackDetailView(generic_views.DetailView):
     model = Track
+    context_object_name = 'track'
     template_name = 'app/track.html'
 
 class AlbumDetailView(generic_views.DetailView):
     model = Album
+    context_object_name = 'album'
     template_name = 'app/album.html'
-
-
-class PlaylistDetailView(generic_views.DetailView):
-    model = Playlist
-    template_name = 'app/playlist.html'
 
 class ArtistDetailView(generic_views.DeleteView):
     model = Artist
+    context_object_name = 'artist'
     template_name = 'app/artist.html'
 
