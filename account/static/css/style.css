@@ -91,19 +91,19 @@ nav li a:active{
 .form button:active{
     background: #9b59b6;
 }
-.section{
-  display: flex;
-}
+
 .sidebar{
   width: 20%;
   background-color: #000;
-  height: 100vh;
+  position: fixed;
+  height: 100%;
+  top: 0;
 }
 
 .sidebar nav ul{
   display: flex;
   flex-direction: column;
-
+  
 }
 .sidebar  nav ul li a{
   color: #b2b2b2;
@@ -120,13 +120,17 @@ nav li a:active{
 .divider{
   border-bottom: 1px solid rgba(255, 255, 255, 0.479);
 }
+.playlistitem{
+  color: red;
+}
 
 .sidebar div.playlist{
   margin-top: 30px;
 }
 .contentSection{
-  flex:1;
+  margin-left: 20%;
   background-color: #121212;
+  min-height: 100vh;
 }
 .maincontent{
   width: 95%;
@@ -137,9 +141,7 @@ nav li a:active{
   color: #b2b2b2;
 }
 .searchcontainer{
-  margin-top: 10px;
   padding: 25px 0;
-
 }
 .searchinput{
   text-align: center;
@@ -165,7 +167,6 @@ nav li a:active{
   background-color: rgb(206, 206, 206);
 }
 .trackslist, .artistlist{
-  margin-top: 50px;
   margin-left: 50px;
   display: flex;
   flex-direction: column;
@@ -176,6 +177,21 @@ nav li a:active{
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
+}
+.trackplaylist img{
+  animation: rotate 3s linear infinite;
+  animation-play-state: paused;
+}
+.trackplaylist .track.play img{
+  animation-play-state: running;
+}
+@keyframes rotate {
+  from{
+    transform:  rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
 }
 .track, .artist{
   display: flex;
@@ -194,8 +210,9 @@ nav li a:active{
   text-decoration: underline;
 }
 .listoptions{
-  margin-top: 20px;
+  
   margin-left: 50px;
+  padding: 20px 0;
 }
 .listoptions nav li a{
   background-color: #b2b2b2;
@@ -205,8 +222,77 @@ nav li a:active{
 .listoptions nav li a:hover{
   background-color: rgb(206, 206, 206);
 }
+.cardbox{
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 800px;
+}
+.trackcard{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
+}
+.card_image{
+  width: 500px;
+  margin: 0 auto;
+}
+.card_image img{
+  width: 500px;
+  height: 300px;
+  object-fit: cover;
+}
+.card_info p{
+  color: #b2b2b2;
+  font-size: 14px;
+}
+.card_info p a{
+  color: #b2b2b2;
+  font-size: 12px;
+  font-style: italic;
+  text-decoration: underline;
+  padding: 10px;
+}
 
+.trackinfo{
+  border-radius: 6px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #000;
+  color: #b2b2b2;
+  padding:10px;
+}
+
+.trackinfo div > a {
+  color: #b2b2b2;
+}
+.trackinfo button{
+  background-color: #696969;
+  display: block;
+  border: none;
+  cursor: pointer;
+  width: 60px;
+  height: 30px;
+  font-size: 16px;
+}
+.artist_info p a{
+  color: #b2b2b2;
+  text-decoration: underline;
+  display: inline-block;
+  padding: 10px 0;
+  cursor: pointer;
+}
+.artist_info p{
+  color: #696969;
+}
+.artist_info p span{
+  color: #b2b2b2;
+  font-size: 18px;
+  padding: 10px;
+}
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */

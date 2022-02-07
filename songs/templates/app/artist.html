@@ -1,0 +1,19 @@
+{% extends 'account/authenticated_base.html'%}
+{% block content %}
+<div class="cardbox">
+    <div class="artist_info">
+        <p><a href="">{{ object.name.title }}</a></p>
+        <p>followers:<span>{{ object.followers.count }} </span></p>
+    </div>
+    {% for album in object.albums.all %}
+    <div class="trackinfo">
+        <div>
+          <a href="{% url 'album_view' album.pk %}">{{ album.name }}</a>
+        </div>
+        <div>
+          <p>{{ album.created|date:"M d, Y " }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
