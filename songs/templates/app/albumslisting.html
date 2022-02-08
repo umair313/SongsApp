@@ -8,7 +8,7 @@
                     <img src="{{ album.thumbnail.url }}" alt=""/>
                 </div>
                 <div class="tracktitle">
-                    <p><a href="">{{ album.name }}</a></p>
+                    <p><a href="{% url 'album_view' album.pk %}">{{ album.name }}</a></p>
                 </div>
             </div>
         {% endfor %}

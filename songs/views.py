@@ -1,6 +1,7 @@
+from re import template
 from django.shortcuts import render
 from django.views import generic as generic_views
-from .models import Album, Track, Artist
+from .models import Album, Track, Artist, Playlist
 # Create your views here.
 
 
@@ -29,4 +30,19 @@ class AlbumListView(generic_views.ListView):
     model = Album
     template_name = 'app/albumslisting.html'
 
+
+class TrackDetailView(generic_views.DetailView):
+    model = Track
+    context_object_name = 'track'
+    template_name = 'app/track.html'
+
+class AlbumDetailView(generic_views.DetailView):
+    model = Album
+    context_object_name = 'album'
+    template_name = 'app/album.html'
+
+class ArtistDetailView(generic_views.DeleteView):
+    model = Artist
+    context_object_name = 'artist'
+    template_name = 'app/artist.html'
 

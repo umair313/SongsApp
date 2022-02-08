@@ -21,7 +21,7 @@
                             <img src="{{ track.album.thumbnail.url }}" alt=""/>
                         </div>
                         <div class="tracktitle">
-                            <p><a href="">{{ track.title.capitalize }}</a></p>
+                            <p><a href="{% url 'track_view' track.slug %}">{{ track.title.capitalize }}</a></p>
                         </div>
                     </div>
                 {% endfor %}
@@ -45,7 +45,7 @@
                             <img src="{{ track.album.thumbnail.url }}" alt=""/>
                         </div>
                         <div class="tracktitle">
-                            <p><a href="">{{ track.title.capitalize }}</a></p>
+                            <p><a href="{% url 'track_view' track.slug %}">{{ track.title.capitalize }}</a></p>
                         </div>
                     </div>
                 {% endfor %}
@@ -62,7 +62,7 @@
                             <img src="{{ album.thumbnail.url }}" alt=""/>
                         </div>
                         <div class="tracktitle">
-                            <p><a href="">{{ album.name }}</a></p>
+                            <p><a href="{% url 'album_view' album.pk %}">{{ album.name }}</a></p>
                         </div>
                     </div>
                 {% endfor %}
@@ -74,7 +74,7 @@
                 {% for artist in artists %}
                     <div class="artist">
                         <div class="artistname">
-                            <p><a href="">{{ artist.name }}</a></p>
+                            <p><a href="{% url 'artist_view' artist.pk %}">{{ artist.name }}</a></p>
                         </div>
                     </div>
                 {% endfor %}

@@ -1,0 +1,26 @@
+{% extends 'account/authenticated_base.html'%}
+
+{% block content %}
+<div class="cardbox">
+    <div class="trackcard">
+      <div class="card_image">
+        <img src="{{ track.album.thumbnail.url }}" alt="">
+      </div>
+      <div class="card_info">
+          <p>Album <a href="{% url 'album_view' track.album.pk %}">{{ track.album.name }}</a> BY <a href="{% url 'artist_view' track.artist.pk%}">{{ track.artist.name }}</a></p>
+      </div>
+  </div>
+  <div class="trackinfo">
+      <div>
+        <a href="">{{ track.title.title }}</a>
+      </div>
+      <div>
+        <p>{{ track.created|date:"M d, Y " }}</p>
+      </div>
+      <div>
+        <button>Play</button>
+        <!-- <i class="gg-play-button"></i> -->
+      </div>
+  </div>
+  </div>
+{% endblock %}
