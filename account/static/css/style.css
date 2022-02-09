@@ -293,6 +293,20 @@ nav li a:active{
   font-size: 18px;
   padding: 10px;
 }
+
+audio{
+  height: 40px;
+}
+.like_icon{
+  font-size: 30px;
+  cursor: pointer;
+}
+.like_icon.liked{
+  color: #10ac84;
+}
+.playlisttitle{
+  padding: 20px 0;
+}
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -322,6 +336,7 @@ nav li a:active{
   font-size: 28px;
   font-weight: bold;
 }
+
 
 .close:hover,
 .close:focus {

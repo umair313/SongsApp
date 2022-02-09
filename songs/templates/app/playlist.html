@@ -1,0 +1,72 @@
+{% extends 'account/authenticated_base.html'%}
+{% block content %}
+<div class="cardbox">
+    <div class="playlisttitle">
+        <h2>Liked Songs</h2>
+    </div>
+<div class="trackinfo">
+    <div>
+      <a href="">title</a>
+    </div>
+    <div>
+      <a href="">Artist</a>
+    </div>
+    <div>
+      <a href="">Album</a>
+    </div>
+    <div>
+      <p>Created date</p>
+    </div>
+    <div>
+     
+    </div>
+</div>
+ {% if tracks %}
+    {% for track in tracks %}
+    <div class="trackinfo"  data-id="{{ track.id }}">
+        <div>
+          <a href="{% url 'track_view' track.slug %}">{{ track.title.title }}</a>
+        </div>
+        <div>
+          <a href="{% url 'artist_view' track.artist.pk %}">{{ track.artist.name.title }}</a>
+        </div>
+        <div>
+          <a href="{% url 'album_view' track.album.pk %}">{{ track.album.name.title }}</a>
+        </div>
+        <div>
+          <p>{{ track.created|date:"M d, Y " }}</p>
+        </div>
+        <div>
+          <ion-icon name="heart" id="likebtn" dataset="5" class="like_icon liked"></ion-icon>
+        </div>
+    </div>
+    {% endfor %}
+ {% else %}
+ {% endif %}
+</div>
+ 
+<script>
+    const likebtns = document.querySelectorAll("#likebtn");
+    likebtns.forEach( likebtn => likebtn.addEventListener('click', unlikeTrackbtnclicked));
+    
+    function unlikeTrackbtnclicked(){
+    const liked = this.classList.contains("liked");
+    const trackid = this.parentNode.parentNode.dataset.id;
+    if (liked){
+      unlikeTrack(trackid)
+    }
+    }
+    function unlikeTrack(id){
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", `/track/unlike/${id}`);
+      xhr.onload = function(){
+          if (this.status == 200){
+              const response = JSON.parse(this.responseText);
+              window.location.reload()
+
+          }
+      }
+      xhr.send()
+    }
+  </script>
+{% endblock %}
