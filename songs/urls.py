@@ -1,8 +1,10 @@
+from unicodedata import name
 from django.urls import path
 from .views import (ListView, ArtistListView, AlbumListView, LikeSongsPlaylistView,
                     TrackDetailView, AlbumDetailView, ArtistDetailView,
-                    LikeTrack, UnlikeTrack)
+                    LikeTrack, UnlikeTrack, homeView)
 urlpatterns = [
+    path('', homeView, name='home'),
     path('list/', ListView.as_view(), name='listing'),
     path('artists/', ArtistListView.as_view(), name='artist_list'),
     path('albums/', AlbumListView.as_view(), name='album_list'),

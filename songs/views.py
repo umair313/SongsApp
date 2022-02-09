@@ -1,9 +1,11 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic as generic_views
 from .models import Album, Track, Artist, Playlist
 # Create your views here.
 
+def homeView(request):
+    return redirect('listing')
 
 class ListView(generic_views.View):
     def get(self, request, *args, **kwargs):
