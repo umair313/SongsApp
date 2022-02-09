@@ -4,7 +4,6 @@ from .views import (ListView, ArtistListView, AlbumListView, LikeSongsPlaylistVi
                     LikeTrack, UnlikeTrack)
 urlpatterns = [
     path('', ListView.as_view(), name='listing'),
-    path('search/', ListView.as_view(), name='listing'),
     path('artists/', ArtistListView.as_view(), name='artist_list'),
     path('albums/', AlbumListView.as_view(), name='album_list'),
     path('track/<slug:slug>/', TrackDetailView.as_view(), name='track_view'),
