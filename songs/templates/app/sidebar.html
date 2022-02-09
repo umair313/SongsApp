@@ -2,8 +2,7 @@
     <div class="navigation">
         <nav>
             <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="{% url 'listing' %}">Search</a></li>
+                <li><a href="{% url 'listing' %}">Home</a></li>
                 <li><a href="">Library</a></li>
             </ul>
         </nav>
@@ -14,7 +13,7 @@
                 <li>
                     <a href="void:javascript()" id="myBtn">Create Playlist</a>
                 </li>
-                <li><a href="">Liked Songs</a></li>
+                <li><a href="{% url 'playlist_default' %}">Liked Songs</a></li>
                 <li><a href="" class="divider"></a></li>
                 <li><a href="">Naruto 1</a></li>
                 <li class="playlistitem">

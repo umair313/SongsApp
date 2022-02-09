@@ -10,7 +10,7 @@
           <p>Album <a href="{% url 'album_view' track.album.pk %}">{{ track.album.name }}</a> BY <a href="{% url 'artist_view' track.artist.pk%}">{{ track.artist.name }}</a></p>
       </div>
   </div>
-  <div class="trackinfo">
+  <div class="trackinfo" data-id="{{ track.id }}">
       <div>
         <a href="">{{ track.title.title }}</a>
       </div>
@@ -18,9 +18,53 @@
         <p>{{ track.created|date:"M d, Y " }}</p>
       </div>
       <div>
-        <button>Play</button>
-        <!-- <i class="gg-play-button"></i> -->
+        {% if track in liked_tracks %}
+        <ion-icon name="heart" id="likebtn" class="like_icon liked"></ion-icon>
+        {% else %}
+        <ion-icon name="heart" id="likebtn" class="like_icon"></ion-icon>
+        {% endif %}
+      </div>
+      <div>
+       <audio controls id="audioplayer"
+        src="{{ track.audio_file.url }}">
+         
+       </audio>
+       
       </div>
   </div>
   </div>
+  <script>
+    const audio = document.querySelector("#audioplayer");
+    audio.addEventListener('ended', function(){
+      console.log("ended")
+    });
+  </script>
+  <script>
+    const likebtn = document.querySelector("#likebtn");
+    likebtn.addEventListener('click', function(){
+    const liked = likebtn.classList.contains("liked");
+    const trackid = this.parentNode.parentNode.dataset.id;
+    const base_url = window.location.origin;
+    if (liked){
+      likebtn.classList.remove("liked");
+      unlikeTrack(trackid)
+    }else{
+      likebtn.classList.add("liked");
+      likeTrack(trackid)
+    }
+    })
+    function likeTrack(id){
+      
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", `/track/like/${id}`);
+      xhr.send()
+    }
+    function unlikeTrack(id){
+      
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", `/track/unlike/${id}`);
+      xhr.send()
+    }
+  </script>
+  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 {% endblock %}
