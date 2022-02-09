@@ -1,7 +1,7 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views import generic as generic_views
-from .models import Album, Track, Artist, Playlist, PlaylistTrack
+from .models import Album, Track, Artist, Playlist
 # Create your views here.
 
 
@@ -58,29 +58,29 @@ class ArtistDetailView(generic_views.DeleteView):
 class LikeSongsPlaylistView(generic_views.View):
     def get(self, request, *args, **kwargs):
         user = request.user
-        tracks = user.playlists.filter(name="Liked Songs").first().tracks.all()
+        playlist = Playlist.objects.get(name='Liked Songs', owner=user)
+        tracks = playlist.tracks.all()
         return render(request, 'app/playlist.html', context={"tracks": tracks})
 
 
 def LikeTrack(request, track_id):
     user = request.user
-    playlist = user.playlists.filter(name='Liked Songs').first()
-    track = Track.objects.filter(id=track_id).first()
-    object = playlist.tracks.filter(id=track_id).first()
-    if not object:
-        PlaylistTrack.objects.create(playlist=playlist, track=track)
+    playlist = Playlist.objects.get(name='Liked Songs', owner=user)
+    track = get_object_or_404(Track, id=track_id)
+    if track:
+        playlist.tracks.add(track)
         return JsonResponse({'message': True})
     else:
         return JsonResponse({'message': False})
-
+        
 
 def UnlikeTrack(request, track_id):
     user = request.user
-    playlist = user.playlists.filter(name='Liked Songs').first()
-    track = Track.objects.filter(id=track_id).first()
-    object = PlaylistTrack.objects.filter(playlist=playlist, track=track).first()
-    if object:
-        object.delete()
+    playlist = Playlist.objects.get(name='Liked Songs', owner=user)
+    tracks = playlist.tracks.all()
+    track = get_object_or_404(Track, id=track_id)
+    if track in tracks :
+        playlist.tracks.remove(track)
         return JsonResponse({'message': True})
     else:
         return JsonResponse({'message': False})
