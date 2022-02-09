@@ -17,6 +17,5 @@ class RegisterUserView(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         Playlist.objects.create(owner=self.object)
-        return super(RegisterUserView, self).form_valid(form)
-
+        return super().form_valid(form)
 
