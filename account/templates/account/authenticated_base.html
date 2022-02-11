@@ -12,17 +12,35 @@
     {% endif %}
     <script type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" 
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" 
+        crossorigin="anonymous">
+</script>
 <link rel="stylesheet" href=" {% static 'css/style.css'%}">
+<link rel="stylesheet" href=" {% static 'css/context-menu.css'%}">
+<script src="{% static 'js/context-menu.js'%}"></script>
+<script src="{% static 'js/jquery-2.2.0.js'%}"></script>
 
 <!-- fonts links -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
 rel="stylesheet">
+
   </head>
   <body>
+    <div class="context-menu-container" id="context-menu-items">
+      <ul>
+          {% for playlist in user.playlists.all %}
+              {% if playlist.name != 'Liked Songs' %}
+                <li>{{ playlist.name}} <span id="playlistid">{{ playlist.id }}</span></li>
+              {% endif %}
+          {% endfor %}
+          <li>close</li>
+      </ul>
+  </div>
     <div class="container">
-    {#        {% include 'account/header.html'%}#}
+    
      <div class="section">
         {% include 'app/sidebar.html' %}
         <div class="contentSection">
@@ -34,6 +52,110 @@ rel="stylesheet">
         </div>
     </div>
     </div>
+    
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="created">
+      <p>Playlist created.</p>
+    </div>
+    <div class="notcreated">
+      <p>Playlist for that name already exit.</p>
+    </div>
+    <div class="playlistform">
+        <label for="">Playlist Name</label>
+        <input type="text" id="playlistname"/>
+        <button id="createplaylistbtn">Create</button>
+    </div>
+  </div>
+</div>
+<script>
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("modalopenBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on the button, open the modal
+  btn.onclick = function () {
+    modal.style.display = "block";
+  };
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+  const createplaylistbtn = document.querySelector("#createplaylistbtn");
+  createplaylistbtn.onclick = function(){
+    const playlistname = document.getElementById("playlistname").value;
+    if (playlistname){
+      createPlaylist(playlistname);
+    }
+  }
+  function createPlaylist(name){
+    const xhr = new XMLHttpRequest()
+    xhr.open("GET", `/playlist/create/${name}/`);
+    xhr.onload = function(){
+      if (this.status == 200 ){
+        const response = JSON.parse(this.responseText);
+        if (response.created){
+          const playlistitems = document.querySelector(".playlistitems");
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          const text = document.createTextNode(response.name);
+          a.appendChild(text);
+          a.setAttribute('href', `/playlist/${response.id}/`);
+          li.appendChild(a)
+          playlistitems.appendChild(li);
+
+          modal.style.display = "none";
+        }
+      }
+    }
+    xhr.send();
+  }
+</script>
+<script>
+
+  $(document).ready(function(){
+  var tableContextMenu = null;
+
+      tableContextMenu = new ContextMenu("context-menu-items", menuItemClickListener);
+  });
+
+  function menuItemClickListener(menu_item, parent)
+  {
+          
+          if(menu_item.text() != "close"){
+          const playlist_id = menu_item.text().split(" ").at(-1);
+          const track_id = document.querySelector(".trackinfo").dataset.id;
+          console.log("Track ID", track_id);
+          console.log("Playlist ID", playlist_id);
+          const xhr = new XMLHttpRequest()
+          xhr.open("GET", `/playlist/${playlist_id}/add/track/${track_id}/`);
+          xhr.onload = function (){
+            if(this.status == 200){
+              const response = JSON.parse(this.responseText);
+              console.log(response)
+            }
+          }
+          xhr.send()
+          }
+
+  }
+</script>
   </body>
 
 </html>

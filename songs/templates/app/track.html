@@ -31,6 +31,9 @@
        </audio>
        
       </div>
+      <div>
+        <h3 class="context-menu" data-container-id="context-menu-items"></h3>
+      </div>
   </div>
   </div>
   <script>
@@ -44,7 +47,6 @@
     likebtn.addEventListener('click', function(){
     const liked = likebtn.classList.contains("liked");
     const trackid = this.parentNode.parentNode.dataset.id;
-    const base_url = window.location.origin;
     if (liked){
       likebtn.classList.remove("liked");
       unlikeTrack(trackid)

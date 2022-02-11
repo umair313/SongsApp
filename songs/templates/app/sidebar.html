@@ -2,6 +2,7 @@
     <div class="navigation">
         <nav>
             <ul>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
                 <li><a href="{% url 'listing' %}">Home</a></li>
                 <li><a href="">Library</a></li>
             </ul>
@@ -11,15 +12,19 @@
         <nav>
             <ul>
                 <li>
-                    <a href="void:javascript()" id="myBtn">Create Playlist</a>
+                    <a href="void:javascript()" id="modalopenBtn">Create Playlist</a>
                 </li>
                 <li><a href="{% url 'playlist_default' %}">Liked Songs</a></li>
                 <li><a href="" class="divider"></a></li>
-                <li><a href="">Naruto 1</a></li>
-                <li class="playlistitem">
-                    <a href="" class="playlistitem">Naruto 2</a>
-                </li>
-                <li class="playlistitem"><a href="">Naruto 3</a></li>
+                <div class="playlistitems">
+                    {% if user.is_authenticated %}
+                        {% for playlist in user.playlists.all %}
+                            {% if playlist.name != 'Liked Songs' %}
+                                <li><a href="{% url 'playlist_view' playlist.pk %}">{{ playlist.name }}</a></li>        
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
             </ul>
         </nav>
     </div>

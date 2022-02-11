@@ -2,7 +2,15 @@
 {% block content %}
 <div class="cardbox">
     <div class="playlisttitle">
-        <h2>Liked Songs</h2>
+        {% if playlist %}
+        <div>
+            <h2 id="title">{{ playlist.name.title }}</h2>
+            <h2><a href="{% url 'playlist_delete_view' playlist.pk %}"><ion-icon name="trash" id="deletebtn"></ion-icon></a></h2>
+        </div>
+            
+        {% else %}
+            <h2>Liked Songs</h2>
+        {% endif %}
     </div>
 <div class="trackinfo">
     <div>
@@ -36,15 +44,91 @@
         <div>
           <p>{{ track.created|date:"M d, Y " }}</p>
         </div>
-        <div>
+        <div>  
           <ion-icon name="heart" id="likebtn" dataset="5" class="like_icon liked"></ion-icon>
         </div>
     </div>
     {% endfor %}
- {% else %}
+ {% elif playlist %}
+ {% for track in playlist.tracks.all %}
+ <div class="trackinfo"  data-id="{{ track.id }}" data-playlistid="{{ playlist.id }}" >
+     <div>
+       <a href="{% url 'track_view' track.slug %}">{{ track.title.title }}</a>
+     </div>
+     <div>
+       <a href="{% url 'artist_view' track.artist.pk %}">{{ track.artist.name.title }}</a>
+     </div>
+     <div>
+       <a href="{% url 'album_view' track.album.pk %}">{{ track.album.name.title }}</a>
+     </div>
+     <div>
+       <p>{{ track.created|date:"M d, Y " }}</p>
+     </div>
+     <div>
+        {% if track in liked_tracks %}
+        <ion-icon name="heart" id="likebtn" class="like_icon liked"></ion-icon>
+        {% else %}
+        <ion-icon name="heart" id="likebtn" class="like_icon"></ion-icon>
+        {% endif %}
+     </div>
+     <div>
+        <h2><ion-icon name="remove-circle" id="removebtn"></ion-icon></h2>
+     </div>
+ </div>
+ {% endfor %}
  {% endif %}
 </div>
  
+{% if playlist %}
+
+<script>
+    const likebtn = document.querySelector("#likebtn");
+    if(likebtn){
+      likebtn.addEventListener('click', function(){
+    const liked = likebtn.classList.contains("liked");
+    const trackid = this.parentNode.parentNode.dataset.id;
+    if (liked){
+      likebtn.classList.remove("liked");
+      unlikeTrack(trackid)
+    }else{
+      likebtn.classList.add("liked");
+      likeTrack(trackid)
+    }
+    })
+    }
+    function likeTrack(id){
+      
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", `/track/like/${id}`);
+      xhr.send()
+    }
+    function unlikeTrack(id){
+      
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", `/track/unlike/${id}`);
+      xhr.send()
+    }
+
+    const removebtns = document.querySelectorAll("#removebtn");
+  removebtns.forEach( removebtn => removebtn.addEventListener('click', removefromplaylist, false));
+
+  function removefromplaylist(){
+    const xhr = new XMLHttpRequest();
+    const trackinfo = this.parentNode.parentNode.parentNode.dataset;
+    xhr.open("GET", `/playlist/${trackinfo.playlistid}/remove/track/${trackinfo.id}/`);
+    xhr.onload = function(){
+      console.log()
+      if(this.status == 200){
+        const response = JSON.parse(this.responseText);
+        if(response.removed){
+          window.location.reload();
+        }
+      }
+    }
+    xhr.send();
+  }
+</script>
+{% else %}
 <script>
     const likebtns = document.querySelectorAll("#likebtn");
     likebtns.forEach( likebtn => likebtn.addEventListener('click', unlikeTrackbtnclicked));
@@ -54,6 +138,9 @@
     const trackid = this.parentNode.parentNode.dataset.id;
     if (liked){
       unlikeTrack(trackid)
+    }else{
+      likebtn.classList.add("liked");
+      likeTrack(trackid)
     }
     }
     function unlikeTrack(id){
@@ -63,10 +150,11 @@
           if (this.status == 200){
               const response = JSON.parse(this.responseText);
               window.location.reload()
-
           }
       }
       xhr.send()
     }
   </script>
+  
+{% endif %}
 {% endblock %}

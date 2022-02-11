@@ -1,5 +1,4 @@
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from .forms import UserRegisterationForm
 from songs.models import Playlist
