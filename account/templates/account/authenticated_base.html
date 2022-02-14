@@ -65,7 +65,7 @@ rel="stylesheet">
       <p>Playlist for that name already exit.</p>
     </div>
     <div class="playlistform">
-        <label for="">Playlist Name</label>
+        <label for="playlistname">Playlist Name</label>
         <input type="text" id="playlistname"/>
         <button id="createplaylistbtn">Create</button>
     </div>
@@ -73,13 +73,13 @@ rel="stylesheet">
 </div>
 <script>
   // Get the modal
-  var modal = document.getElementById("myModal");
+  const modal = document.getElementById("myModal");
 
   // Get the button that opens the modal
-  var btn = document.getElementById("modalopenBtn");
+  const btn = document.getElementById("modalopenBtn");
 
   // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
+  const span = document.getElementsByClassName("close")[0];
 
   // When the user clicks on the button, open the modal
   btn.onclick = function () {
@@ -91,34 +91,35 @@ rel="stylesheet">
     modal.style.display = "none";
   };
 
-  // When the user clicks anywhere outside of the modal, close it
+
   window.onclick = function (event) {
-    if (event.target == modal) {
+    if (event.target === modal) {
       modal.style.display = "none";
     }
   };
-  const createplaylistbtn = document.querySelector("#createplaylistbtn");
-  createplaylistbtn.onclick = function(){
-    const playlistname = document.getElementById("playlistname").value;
-    if (playlistname){
-      createPlaylist(playlistname);
+  const create_playlist_button = document.querySelector("#createplaylistbtn");
+  create_playlist_button.onclick = function(){
+    const playlist_name = document.getElementById("playlistname").value;
+    if (playlist_name){
+      createPlaylist(playlist_name);
     }
   }
   function createPlaylist(name){
     const xhr = new XMLHttpRequest()
     xhr.open("GET", `/playlist/create/${name}/`);
     xhr.onload = function(){
-      if (this.status == 200 ){
+      if (this.status === 200 ){
         const response = JSON.parse(this.responseText);
+
         if (response.created){
-          const playlistitems = document.querySelector(".playlistitems");
+          const playlist_items = document.querySelector(".playlistitems");
           const li = document.createElement("li");
           const a = document.createElement("a");
           const text = document.createTextNode(response.name);
           a.appendChild(text);
           a.setAttribute('href', `/playlist/${response.id}/`);
           li.appendChild(a)
-          playlistitems.appendChild(li);
+          playlist_items.appendChild(li);
 
           modal.style.display = "none";
         }
@@ -130,7 +131,7 @@ rel="stylesheet">
 <script>
 
   $(document).ready(function(){
-  var tableContextMenu = null;
+      let tableContextMenu = null;
 
       tableContextMenu = new ContextMenu("context-menu-items", menuItemClickListener);
   });
@@ -138,19 +139,11 @@ rel="stylesheet">
   function menuItemClickListener(menu_item, parent)
   {
           
-          if(menu_item.text() != "close"){
+          if(menu_item.text() !== "close"){
           const playlist_id = menu_item.text().split(" ").at(-1);
           const track_id = document.querySelector(".trackinfo").dataset.id;
-          console.log("Track ID", track_id);
-          console.log("Playlist ID", playlist_id);
           const xhr = new XMLHttpRequest()
           xhr.open("GET", `/playlist/${playlist_id}/add/track/${track_id}/`);
-          xhr.onload = function (){
-            if(this.status == 200){
-              const response = JSON.parse(this.responseText);
-              console.log(response)
-            }
-          }
           xhr.send()
           }
 
